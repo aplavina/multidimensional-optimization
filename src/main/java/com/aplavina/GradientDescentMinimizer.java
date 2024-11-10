@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.function.DoubleBinaryOperator;
 
 @Slf4j
-public class GradientDescentMinimizer implements Minimizer {
+public class GradientDescentMinimizer {
     private static final double MIN_STEP = 0.000000000001;
 
     private final DoubleBinaryOperator function;
@@ -25,7 +25,6 @@ public class GradientDescentMinimizer implements Minimizer {
         this.gradient = new Gradient(function);
     }
 
-    @Override
     public Point minimize() {
         int countIterations = 1;
         iterate();

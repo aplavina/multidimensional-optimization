@@ -12,7 +12,6 @@ public class Main {
         double precision = 0.0001;
         Point initial = new Point(2, 3);
         double step = 0.3;
-
         CoordinateDescentMinimizer coordinateDescentMinimizer =
                 new CoordinateDescentMinimizer(function, precision, initial);
         Point coordinateDescentAnswer = coordinateDescentMinimizer.minimize();
@@ -23,5 +22,10 @@ public class Main {
         Point gradientDescentAnswer = gradientDescentMinimizer.minimize();
         log.info("Gradient descent result: {} f(Point) = {}", gradientDescentAnswer,
                 function.applyAsDouble(gradientDescentAnswer.getX1(), gradientDescentAnswer.getX2()));
+        double steepestDescentPrecision = 0.01;
+        SteepestDescent steepestDescent = new SteepestDescent(initial, steepestDescentPrecision, function);
+        Point steepestDescentAnswer = steepestDescent.minimize();
+        log.info("Steepest descent result : {} f(Point) = {}", steepestDescentAnswer,
+                function.applyAsDouble(steepestDescentAnswer.getX1(), steepestDescentAnswer.getX2()));
     }
 }

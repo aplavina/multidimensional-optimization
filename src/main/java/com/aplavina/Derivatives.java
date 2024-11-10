@@ -1,16 +1,20 @@
 package com.aplavina;
 
-import java.util.function.DoubleFunction;
+import java.util.function.DoubleUnaryOperator;
 
 public class Derivatives {
     private static final double DERIVATIVE_PRECISION = 0.000001;
 
-    public static double getDerivative(DoubleFunction<Double> function, double x) {
-        return (function.apply(x + DERIVATIVE_PRECISION) - function.apply(x)) / DERIVATIVE_PRECISION;
+    private Derivatives() {
     }
 
-    public static double getSecondDerivative(DoubleFunction<Double> function, double x) {
-        return (function.apply(x + DERIVATIVE_PRECISION) - 2 * function.apply(x) + function.apply(x - DERIVATIVE_PRECISION))
+    public static double getDerivative(DoubleUnaryOperator function, double x) {
+        return (function.applyAsDouble(x + DERIVATIVE_PRECISION) - function.applyAsDouble(x)) / DERIVATIVE_PRECISION;
+    }
+
+    public static double getSecondDerivative(DoubleUnaryOperator function, double x) {
+        return (function.applyAsDouble(x + DERIVATIVE_PRECISION) - 2 * function.applyAsDouble(x)
+                + function.applyAsDouble(x - DERIVATIVE_PRECISION))
                 / (DERIVATIVE_PRECISION * DERIVATIVE_PRECISION);
     }
 }

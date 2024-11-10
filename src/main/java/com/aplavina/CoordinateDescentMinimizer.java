@@ -2,14 +2,13 @@ package com.aplavina;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.function.BinaryOperator;
 import java.util.function.DoubleBinaryOperator;
-import java.util.function.DoubleFunction;
+import java.util.function.DoubleUnaryOperator;
 
 import static com.aplavina.Newton.solveNewton;
 
 @Slf4j
-public class CoordinateDescentMinimizer implements Minimizer {
+public class CoordinateDescentMinimizer {
     private final DoubleBinaryOperator function;
     private final double precision;
     private Point M0;
@@ -22,7 +21,6 @@ public class CoordinateDescentMinimizer implements Minimizer {
         M0 = initial;
     }
 
-    @Override
     public Point minimize() {
         int countIterations = 1;
         iterate();
@@ -36,9 +34,9 @@ public class CoordinateDescentMinimizer implements Minimizer {
     }
 
     private void iterate() {
-        DoubleFunction<Double> fixedX2Function = x1 -> function.applyAsDouble(x1, M0.getX2());
+        DoubleUnaryOperator fixedX2Function = x1 -> function.applyAsDouble(x1, M0.getX2());
         M1 = new Point(solveNewton(fixedX2Function, M0.getX1(), precision), M0.getX2());
-        DoubleFunction<Double> fixedX1Function = x2 -> function.applyAsDouble(M1.getX1(), x2);
+        DoubleUnaryOperator fixedX1Function = x2 -> function.applyAsDouble(M1.getX1(), x2);
         M2 = new Point(M1.getX1(), solveNewton(fixedX1Function, M1.getX2(), precision));
     }
 

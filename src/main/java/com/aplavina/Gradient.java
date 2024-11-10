@@ -19,4 +19,10 @@ public class Gradient {
     public double getX2Derivative(Point point) {
         return x2Derivative.apply(point.getX1(), point.getX2());
     }
+
+    public double modulo(Point point) {
+        double x1DerivativeValue = x1Derivative.apply(point.getX1(), point.getX2());
+        double x2DerivativeValue = x2Derivative.apply(point.getX1(), point.getX2());
+        return Math.sqrt(x1DerivativeValue * x1DerivativeValue + x2DerivativeValue * x2DerivativeValue);
+    }
 }
